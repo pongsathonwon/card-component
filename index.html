@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skd card</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/tailwindcss">
+      @layer utilities {
+        .shadow-base {
+          box-shadow: 0.2px 0.8px 0.7px hsl(0deg 0% 63% / 1),
+            1px 5.3px 4.4px -1.5px hsl(0deg 0% 63% / 0.94),
+            5.3px 26.8px 22.5px -3px hsl(0deg 0% 63% / 0.67),
+            16.6px 83.8px 70.5px -4.5px hsl(0deg 0% 63% / 0.4);
+        }
+        .shadow-lift {
+          box-shadow: 0.2px 0.3px 0.3px hsl(0deg 0% 63% / 1),
+            1.1px 1.8px 1.7px -1.5px hsl(0deg 0% 63% / 0.94),
+            5.5px 9.1px 8.8px -3px hsl(0deg 0% 63% / 0.67),
+            17.1px 28.5px 27.4px -4.5px hsl(0deg 0% 63% / 0.4);
+        }
+
+        .lift-card {
+          @apply -translate-y-4 shadow-lift;
+        }
+
+        .animate-shimmer {
+          animation: shimmer 1.5s ease-out infinite;
+        }
+
+        @keyframes shimmer {
+          100% {
+            transform: translateX(12rem);
+          }
+        }
+      }
+      @layer components {
+        .card {
+          @apply w-[18rem] h-[28rem] rounded-md border flex flex-col mx-auto my-12 bg-slate-50 overflow-hidden duration-300;
+        }
+        .skeleton {
+          @apply w-[30rem] h-full relative right-48 bg-gradient-to-br from-slate-50 via-gray-200 to-slate-50 animate-shimmer;
+        }
+        .star-wrapper {
+          @apply flex flex-row items-center mr-2;
+          background-clip: text;
+        }
+        .star-wrapper * {
+          color: transparent;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="container grid grid-cols-3">
+      <div id="skeleton" class="card">
+        <div class="skeleton"></div>
+      </div>
+      <div id="card" class="card shadow-base hover:lift-card">
+        <!--hero-->
+        <div
+          class="h-[8rem] rounded-t-md bg-[url('./assets/hero/hero.jpg')] bg-cover"
+        ></div>
+        <!--content-->
+        <div class="flex-1 p-4 flex flex-col justify-between">
+          <!--top session-->
+          <div class="gap-2" id="top-session">
+            <h3 class="text-xs uppercase text-amber-300">online course</h3>
+            <h2 class="font-medium text capitalize">
+              photography like a pro max
+            </h2>
+            <p class="text-sm text-neutral-500 line-clamp-2">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              Similique ex optio nobis voluptate quod totam accusantium dolore,
+              sequi temporibus, assumenda quas facere exercitationem voluptas
+              saepe dolorum libero voluptatibus, deserunt perspiciatis?
+            </p>
+          </div>
+          <!--bottom session-->
+          <div class="flex flex-col gap-2" id="bottom-session">
+            <!--tag-->
+            <div id="tag" class="flex flex-row gap-2">
+              <div
+                class="bg-amber-400 rounded-lg uppercase px-2 py-[2px] text-xs"
+              >
+                new
+              </div>
+              <div
+                class="bg-red-400 rounded-lg uppercase px-2 py-[2px] text-xs"
+              >
+                promotion
+              </div>
+            </div>
+            <!--rating-->
+            <div id="rating" class="flex flex-row">
+              <div id="star-wrapper" class="star-wrapper">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+
+              <div id="score" class="">0</div>
+            </div>
+            <!--lecturer-->
+            <div id="lecturer" class="flex flex-row gap-2 items-center">
+              <div class="size-8 rounded-full border">
+                <img
+                  src="./assets/avatar/skd.png"
+                  alt="avatar"
+                  class="rounded-full"
+                />
+              </div>
+              <div id="lecturer-name" class="text-xs"></div>
+            </div>
+          </div>
+        </div>
+        <!--price-->
+        <div class="h-[2.375rem] border-t px-4 py-2 flex justify-end items-end">
+          <div class="mr-auto flex flex-row gap-2 items-center">
+            <svg
+              stroke="currentColor"
+              fill="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              class="sc-1gmjuso-2 hxlIyN"
+              height="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"
+              ></path>
+            </svg>
+            <span class="after:content-['ชั่วโมง']">4</span>
+          </div>
+
+          <span class="after:content-['.-'] font-semibold">99999</span>
+        </div>
+      </div>
+    </section>
+  </body>
+  <script
+    src="https://kit.fontawesome.com/2fd76ace50.js"
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    const rate = 4.7;
+    const curRating = Math.round(rate * 20);
+    const starWrapperEle = document.getElementById("star-wrapper");
+    const score = document.getElementById("score");
+    const gradient = `linear-gradient(to right,#fbbf24,#fbbf24 ${curRating}%,#475569 ${curRating}%,#475569 100%)`;
+    starWrapperEle.style.backgroundImage = gradient;
+    score.innerText = rate;
+    const lecturerNameEle = document.getElementById("lecturer-name");
+    lecturerNameEle.innerHTML = "ishappy";
+  </script>
+</html>
