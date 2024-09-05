@@ -86,7 +86,7 @@
                 new
               </div>
               <div
-                class="bg-red-400 rounded-lg uppercase px-2 py-[2px] text-xs"
+                class="bg-red-400 rounded-lg uppercase px-2 py-[2px] text-xs text-slate-50"
               >
                 promotion
               </div>
@@ -139,6 +139,28 @@
           <span class="after:content-['.-'] font-semibold">99999</span>
         </div>
       </div>
+      <div class="m-auto flex flex-col h-40 p-4 justify-between">
+        <div
+          class="flex flex-row gap-2 items-center border rounded-md p-2 uppercase"
+        >
+          <label for="rate">enter number </label>
+          <input
+            type="number"
+            min="0"
+            max="5"
+            value="3"
+            name="rate"
+            id="rate"
+            class="p-2 border"
+          />
+        </div>
+        <button
+          id="btn-submit"
+          class="rounded-md bg-amber-400 text-slate-50 h-8"
+        >
+          update rating
+        </button>
+      </div>
     </section>
   </body>
   <script
@@ -146,14 +168,39 @@
     crossorigin="anonymous"
   ></script>
   <script>
-    const rate = 4.7;
+    const rate = 3;
     const curRating = Math.round(rate * 20);
     const starWrapperEle = document.getElementById("star-wrapper");
     const score = document.getElementById("score");
     const gradient = `linear-gradient(to right,#fbbf24,#fbbf24 ${curRating}%,#475569 ${curRating}%,#475569 100%)`;
     starWrapperEle.style.backgroundImage = gradient;
     score.innerText = rate;
+    //////////////////////////////////////////////////////////
     const lecturerNameEle = document.getElementById("lecturer-name");
     lecturerNameEle.innerHTML = "ishappy";
+    ///////////////////////////////////////////////////////
+    const inputEle = document.getElementById("rate");
+    /////////////////////////////////////////////////////
+    const isRateInvalid = (rate) => {
+      return rate < 0 || rate > 5;
+    };
+    const handleClick = (e) => {
+      e.preventDefault();
+      const value = inputEle.value;
+      if (isRateInvalid(value)) {
+        alert("rating between 0 to 5");
+        return;
+      }
+      setValue(value);
+    };
+    const setValue = (rate) => {
+      const curRating = Math.round(rate * 20);
+      const gradient = `linear-gradient(to right,#fbbf24,#fbbf24 ${curRating}%,#475569 ${curRating}%,#475569 100%)`;
+      starWrapperEle.style.backgroundImage = gradient;
+      score.innerText = rate;
+    };
+
+    const btnEle = document.getElementById("btn-submit");
+    btnEle.addEventListener("click", handleClick);
   </script>
 </html>
